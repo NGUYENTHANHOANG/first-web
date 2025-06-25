@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Em có yêu anh hônnn:>>>>?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 30px;
+      background: linear-gradient(to bottom right, #ffe0e9, #ffb3c6);
+      transition: opacity 1s ease;
+    }
+    .content {
+      margin-bottom: 40px;
+    }
+    img {
+      width: 200px;
+      border-radius: 12px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 40px;
+      position: relative;
+    }
+    .btn {
+      padding: 14px 28px;
+      font-size: 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .yes {
+      background-color: #4caf50;
+      color: white;
+      z-index: 2;
+      transform-origin: center;
+    }
+    .no {
+      background-color: #f44336;
+      color: white;
+      position: absolute;
+      z-index: 2;
+      position: absolute;
+      top: 100px;
+      left: 595px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h2>Em có yêu anh hônnn:>>>>?</h2>
+    <img src="hinh.gif" alt="gift tình yêu:>>>">
+  </div>
+
+  <div class="buttons" id="buttonContainer">
+    <button class="btn yes" id="yesBtn" onclick="chooseYes()">Có</button>
+    <button class="btn no" id="noBtn" onclick="chooseNo()">Không</button>
+  </div>
+
+  <!-- Nhạc nền -->
+  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+  <!-- Âm thanh nút nhấn -->
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+  <button id="playMusicBtn">🔊 Bấm để bật nhạc nền</button>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const sound = document.getElementById("clickSound");
+    const bgm = document.getElementById("bgm");
+    const playBtn = document.getElementById("playMusicBtn");
+    const container = document.getElementById("buttonContainer");
+
+    let scale = 1;
+
+    function chooseNo() {
+      sound.currentTime = 0;
+      sound.play();
+
+      // Tính khu vực tránh đè lên nút Có
+      const yesRect = yesBtn.getBoundingClientRect();
+      const maxLeft = window.innerWidth - 120;
+      const maxTop = window.innerHeight - 120;
+
+      let x, y;
+      do {
+        x = Math.random() * maxLeft;
+        y = Math.random() * maxTop;
+      } while (
+        x + 100 > yesRect.left && x < yesRect.right &&
+        y + 50 > yesRect.top && y < yesRect.bottom
+      );
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      if (scale < 20) {
+        scale += 0.5;
+        yesBtn.style.transform = `scale(${scale})`;
+        if (scale >= 20) {
+          yesBtn.innerText = "BẠN ĐÃ CHỌN CÓ!";
+        }
+      }
+    }
+
+    function chooseYes() {
+      document.body.style.opacity = 0;
+      setTimeout(() => {
+        window.location.href = "chonco.html";
+      }, 1000);
+    }
+  </script>
+
+
+</body>
+</html>
+<script>
+  // Tự động phát nhạc khi người dùng click bất kỳ đâu
+  document.addEventListener("click", function () {
+    if (bgm.paused) {
+      bgm.play().catch(err => {
+        console.log("Không phát được nhạc nền:", err);
+      });
+    }
+  });
+</script>
+
+
