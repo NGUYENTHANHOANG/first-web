@@ -104,7 +104,7 @@
         yesBtn.style.transform = `scale(${scale})`;
         if (scale >= 5) {
           yesBtn.innerText = "EM SUY NGHĨ LẠI ĐIII:<<<<";
-          yesBtn.style.fontSize = "14px";
+          yesBtn.style.fontSize = "5px";
           yesBtn.style.padding = "1px 6px";
         }
       }
@@ -124,6 +124,7 @@
 <script>
   // Tự động phát nhạc khi người dùng click bất kỳ đâu
   document.addEventListener("click", function () {
+    playBtn.style.display = "none";
     if (bgm.paused) {
       bgm.play().catch(err => {
         console.log("Không phát được nhạc nền:", err);
